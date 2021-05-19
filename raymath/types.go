@@ -2,13 +2,13 @@ package raymath
 
 import "fmt"
 
-// Following the course notes for CS488
+// Following the course notes for University of Waterloo's CS488
 // (https://student.cs.uwaterloo.ca/~cs488/Winter2021/notes.pdf)
 
 // Point-Vector struct
 type PV interface {
 	Add(op V) PV
-	PreMult(op PV) PV
+	PreMult(op M) PV
 }
 
 // P defines operations on Points
@@ -25,10 +25,10 @@ type Point struct {
 // V defines operations on Vectors
 type V interface {
 	PV
+	Cross(v V) N
 	Dot(op V) float64
 	Len() float64
 	Mult(factor float64) V
-	PostMult(op V) V
 }
 
 // Vector represents a direction of a certain magnitude in three-dimensional space
@@ -36,11 +36,21 @@ type Vector struct {
 	XYZ []int
 }
 
+// N defines operations on Normal 'Vectors'
+type N interface {
+	V
+	PostMult(op M) N
+}
+
+// Normal represents a direction perpendicular to a surface at some
+// point on the surface
+type Normal struct {
+	Vector
+}
+
 // M defines operations on Matrix structs
 type M interface {
-	PreMult(op V) V
 	PreMult(op M) M
-	PostMult(op PV) PV
 }
 
 // Matrix represents a compsition of transformations which may be
@@ -72,7 +82,7 @@ func (Point) Subtract(op Point) Vector {
 }
 
 // Premultiply the current point by a transformation matrix
-func (*Point) PreMult(op Vector) Point {
+func (*Point) PreMult(op Matrix) Point {
 	return nil
 }
 
@@ -83,6 +93,11 @@ func GetVector() Vector {
 
 // Return a Vector which is prepopulated with a direction and magnitude
 func GetVector(x, y, z float64) Vector {
+	return nil
+}
+
+// Calculate the Cross product between the two Vectors.
+func (Vector) Cross(op Vector) Normal {
 	return nil
 }
 
@@ -104,12 +119,12 @@ func (*Vector) Mult(factor float64) Vector {
 }
 
 // Premultiply the current point by a transformation matrix
-func (*Vector) PreMult(op Vector) Vector {
+func (*Vector) PreMult(op Matrix) Vector {
 	return nil
 }
 
 // Postmultiply the current vector by a transformation Matrix.
-func (*Vector) PostMult(op Vector) Vector {
+func (*Vector) PostMult(op Matrix) Vector {
 	return nil
 }
 
@@ -125,10 +140,6 @@ func GetMatrix() Matrix {
 
 // Premultiply the current Matrix byand another Matrix, and return the current Matrix.
 func (*Matrix) PreMult(op Matrix) Matrix {
-	return nil
-}
-
-func (Matrix) PostMult(op Point) Point {
 	return nil
 }
 
