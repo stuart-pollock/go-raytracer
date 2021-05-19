@@ -4,7 +4,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/stuart-pollock/go-raytracer/math"
+	"github.com/stuart-pollock/go-raytracer/raymath"
 )
 
 var _ = Describe("Matrix", func() {
