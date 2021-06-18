@@ -11,19 +11,29 @@ type Ray struct {
 	V Vector
 }
 
+// This enmerates the axes along which some transformations may be applied.
+type Axis int
+
+const (
+	X Axis = iota
+	Y
+	Z
+)
+
 // Scale transformation
-func (*Matrix) Scale(factor float64) Matrix {
+// Scale along `axis` by a factor of`factor`.
+func (*Matrix) Scale(axis Axis, factor float64) error {
 	return nil
 }
 
 // Translate transformation
 // Translate in x, y, and z by a Vector (a, b, c)
-func (*Matrix) Translate(op Vector) Matrix {
+func (*Matrix) Translate(op Vector) error {
 	return nil
 }
 
 // Rotate transformation
-// Rotate around an `axis` (0 = 'x'; 1 = 'y'; 2 = 'z') by `rads` radians
-func (*Matrix) Rotate(axis int, rads float64) Matrix {
+// Rotate around an `axis` by `rads` radians
+func (*Matrix) Rotate(axis Axis, rads float64) error {
 	return nil
 }
