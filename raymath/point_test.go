@@ -35,20 +35,24 @@ var _ = Describe("Point", func() {
 			result := GetPoint(2, 4, 3)
 			result.Add(GetVector(5.321, -3333.221, 92))
 
-			expected := GetPoint(7.321, -3331.221, 95)
+			expected := GetPoint(7.321, -3329.221, 95)
 
-			Expect(result).To(Equal(expected))
+			for i := 0; i < len(expected.XYZ); i++ {
+				Expect(result.XYZ[i]).Should(BeNumerically("~", expected.XYZ[i], EPSILON))
+			}
 		})
 	})
 
 	Context("Subtract", func() {
 		It("subtracts the Point (5.321, -3333.221, 92) from the Point (2, 4, 3)", func() {
-			result := GetPoint(2, 4, 3)
-			result.Subtract(GetPoint(5.321, -3333.221, 92))
+			p := GetPoint(2, 4, 3)
+			result := p.Subtract(GetPoint(5.321, -3333.221, 92))
 
-			expected := GetPoint(-3.321, 3337.221, -89)
+			expected := GetVector(-3.321, 3337.221, -89)
 
-			Expect(result).To(Equal(expected))
+			for i := 0; i < len(expected.XYZ); i++ {
+				Expect(result.XYZ[i]).Should(BeNumerically("~", expected.XYZ[i], EPSILON))
+			}
 		})
 	})
 

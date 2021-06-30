@@ -35,7 +35,7 @@ var _ = Describe("Vector", func() {
 			result := GetVector(2, 4, 3)
 			result.Add(GetVector(5.321, -3333.221, 92))
 
-			expected := GetVector(7.321, -3331.221, 95)
+			expected := GetVector(7.321, -3329.221, 95)
 
 			Expect(result).To(Equal(expected))
 		})
@@ -59,9 +59,9 @@ var _ = Describe("Vector", func() {
 	Context("Dot", func() {
 		It("calculates the dot product of one Vector with another", func() {
 			vec := GetVector(2, 4, 3)
-			result := vec.Dot(GetVector(14, -3, 5))
+			result := vec.Dot(GetVector(14.5, -3, 5))
 
-			expected := 2*14 + 4*-3 + 3*5
+			expected := 2*14.5 + 4*-3 + 3*5
 
 			Expect(result).To(Equal(expected))
 		})
@@ -85,7 +85,9 @@ var _ = Describe("Vector", func() {
 
 			expected := GetVector(-8.4, 18.9, 140.49)
 
-			Expect(result).To(Equal(expected))
+			for i := 0; i < len(expected.XYZ); i++ {
+				Expect(result.XYZ[i]).Should(BeNumerically("~", expected.XYZ[i], EPSILON))
+			}
 		})
 	})
 
@@ -109,7 +111,9 @@ var _ = Describe("Vector", func() {
 				2*7+4*8+3*9,
 			)
 
-			Expect(result).To(Equal(expected))
+			for i := 0; i < len(expected.XYZ); i++ {
+				Expect(result.XYZ[i]).Should(BeNumerically("~", expected.XYZ[i], EPSILON))
+			}
 		})
 	})
 })
