@@ -9,20 +9,20 @@ package raymath
 // (any value in [-EPSILON, EPSILON] is treated as 0).
 const EPSILON = 0.00000000001
 
-// Point-Vector struct
+// Top-level interface for structs which are backed by arrays of float64s
 type IPV interface {
 	Add(op Vector) *PV
 	MatMult(op Matrix) *PV
 }
 
-// P defines operations on Points
+// IP defines operations on Points
 type IP interface {
 	IPV
 	Subtract(op Point) Vector
 	Set(x, y, z int) *PV
 }
 
-// PointVec represents a supertructure for POints, Vectorsa, and surface Normals.
+// PV represents a superstructure for Points, Vectors, and surface Normals
 type PV struct {
 	XYZ []float64
 }
@@ -62,7 +62,7 @@ type Normal struct {
 	Vector
 }
 
-// Premltiply a Matrix by another Matrix
+// Premultiply a Matrix by another Matrix
 type IM interface {
 	MatMult(op Matrix) *Matrix
 }
@@ -161,4 +161,4 @@ func (m *Matrix) MatMult(op Matrix) *Matrix {
 	return nil
 }
 
-// Private implementations
+// Private implementation
